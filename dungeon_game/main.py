@@ -40,7 +40,7 @@ for i in range(4):
     animation_list.append(image)
 
 # create player
-player = Character(100, 100, animation_list[0])
+player = Character(100, 100, animation_list)
 
 # main game loop
 run = True
@@ -64,6 +64,9 @@ while run == True:
 
     # move player
     player.move(dx, dy)
+
+    # update player frame
+    player.update()
 
     # draw player on screen
     player.draw(screen)
