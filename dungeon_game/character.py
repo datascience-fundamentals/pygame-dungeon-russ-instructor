@@ -4,7 +4,7 @@ import math
 
 
 class Character:
-    def __init__(self, x, y, mob_animations, char_type):
+    def __init__(self, x: int, y: int, mob_animations: list[list[list[pygame.Surface]]], char_type: int):
         self.__char_type = char_type
         self.__flip = False
         self.__animation_list = mob_animations[self.__char_type]
@@ -18,7 +18,11 @@ class Character:
         self.__rect = pygame.Rect(0, 0, 40, 40)
         self.__rect.center = (x, y)
 
-    def move(self, dx, dy):
+    @property
+    def rect(self):
+        return self.__rect
+
+    def move(self, dx: int, dy: int):
         self.__running = False
 
         if dx != 0 or dy != 0:
@@ -57,7 +61,7 @@ class Character:
             if self.__frame_index == len(self.__animation_list[self.__action]):
                 self.__frame_index = 0
 
-    def update_action(self, new_action):
+    def update_action(self, new_action: int):
         # check if the new action is different to the previous one
         if new_action != self.__action:
             self.__action = new_action
@@ -65,7 +69,11 @@ class Character:
             self.__frame_index = 0
             self.__update_time = pygame.time.get_ticks()
 
-    def draw(self, surface):
+    def draw(self, surface: pygame.Surface):
         flipped_image = pygame.transform.flip(self.__image, self.__flip, False)
-        surface.blit(flipped_image, self.__rect)
+        if self.__char_type == 0:
+            surface.blit(flipped_image, (self.__rect.x,
+                         self.__rect.y - cons.SCALE * cons.OFFSET))
+        else:
+            surface.blit(flipped_image, self.__rect)
         pygame.draw.rect(surface, cons.RED, self.__rect, 1)
