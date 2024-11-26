@@ -22,7 +22,7 @@ moving_down = False
 # helper function to scale image
 
 
-def scale_img(image, scale):
+def scale_img(image: pygame.Surface, scale: float):
     """
     This function generate a image with the scale modifyed
     """
@@ -32,7 +32,8 @@ def scale_img(image, scale):
 
 
 # load weapon images
-bow_image = pygame.image.load("assets/images/weapons/bow.png").convert_alpha()
+bow_image = scale_img(pygame.image.load(
+    "assets/images/weapons/bow.png").convert_alpha(), cons.WEAPON_SCALE)
 
 # load character images
 mob_animations = []
